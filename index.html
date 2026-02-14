@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Shield – Control Your AI Costs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        :root {
+            --background-body: #0f172a;
+            --background: #1e293b;
+            --background-alt: #334155;
+            --selection: #1e40af;
+            --text-main: #f1f5f9;
+            --text-bright: #f8fafc;
+            --text-muted: #94a3b8;
+            --links: #60a5fa;
+            --focus: #3b82f6;
+            --border: #475569;
+            --code: #f87171;
+            --animation-duration: 0.3s;
+            --button-hover: #1d4ed8;
+            --scrollbar-thumb: #475569;
+            --form-placeholder: #94a3b8;
+            --form-text: #f1f5f9;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #ef4444;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .tier {
+            background: var(--background-alt);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .tier:hover {
+            transform: translateY(-4px);
+            border-color: var(--focus);
+        }
+        
+        .tier.popular {
+            border: 2px solid var(--focus);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--focus);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .tier h3 {
+            margin-top: 0;
+            color: var(--text-bright);
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 1rem 0;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        
+        .features li {
+            padding: 0.25rem 0;
+            color: var(--text-main);
+        }
+        
+        .features li:before {
+            content: "✓";
+            color: #10b981;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--focus);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: var(--button-hover);
+        }
+        
+        .waitlist-form {
+            background: var(--background-alt);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--form-text);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .scanner-cta {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--background);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .scanner-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #10b981;
+            color: white;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .scanner-button:hover {
+            background: #059669;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="badge">135,000+ OpenClaw instances exposed</div>
+        <h1>Real-Time Cost Monitoring for OpenClaw</h1>
+        <p>The only solution that provides real-time cost monitoring, budget alerts, and API cost optimization for your OpenClaw deployment.</p>
+    </div>
+    
+    <div class="scanner-cta">
+        <h3>🔍 Free Security Scan</h3>
+        <p>Check if your OpenClaw instance is vulnerable to CVE-2026-25253 (RCE) and other critical vulnerabilities.</p>
+        <a href="#scanner" class="scanner-button">Run Security Scan Now</a>
+    </div>
+    
+    <div class="pricing-tiers">
+        <div class="tier">
+            <h3>Basic</h3>
+            <div class="price">€49<span class="price-period">/month</span></div>
+            <p>For individuals & hobbyists</p>
+            <ul class="features">
+                <li>Real-time cost dashboard (1 instance)</li>
+                <li>Basic cost dashboard (1 instance)</li>
+                <li>Monthly vulnerability scans</li>
+                <li>Email alerts for budget overruns</li>
+                <li>Community support</li>
+            </ul>
+            <a href="#waitlist" class="cta-button">Join Waitlist</a>
+        </div>
+        
+        <div class="tier popular">
+            <div class="popular-badge">Most Popular</div>
+            <h3>Pro</h3>
+            <div class="price">€199<span class="price-period">/month</span></div>
+            <p>For agencies & small businesses</p>
+            <ul class="features">
+                <li>Everything in Basic +</li>
+                <li>Automated security hardening scripts</li>
+                <li>Multi-instance cost dashboard (up to 5)</li>
+                <li>Slack/Telegram cost alerts</li>
+                <li>Weekly security reports</li>
+                <li>Priority support</li>
+                <li>30-day compliance audit trail</li>
+            </ul>
+            <a href="#waitlist" class="cta-button">Join Waitlist</a>
+        </div>
+        
+        <div class="tier">
+            <h3>Enterprise</h3>
+            <div class="price">€499<span class="price-period">/month</span></div>
+            <p>For companies & enterprises</p>
+            <ul class="features">
+                <li>Everything in Pro +</li>
+                <li>Custom hardening per environment</li>
+                <li>Unlimited instances dashboard</li>
+                <li>Team cost allocation & reporting</li>
+                <li>GDPR/AI Act compliance documentation</li>
+                <li>Quarterly security reviews</li>
+                <li>24/7 emergency support</li>
+                <li>SSO integration</li>
+            </ul>
+            <a href="#waitlist" class="cta-button">Join Waitlist</a>
+        </div>
+    </div>
+    
+    <div class="waitlist-form" id="waitlist">
+        <h2>Join the Founder's Waitlist</h2>
+        <p>Be among the first to secure your OpenClaw deployment. Get 50% off for the first 6 months.</p>
+        
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="tier">Which tier interests you most?</label>
+                <select id="tier" name="tier" required>
+                    <option value="">Select a tier</option>
+                    <option value="basic">Basic (€49/month)</option>
+                    <option value="pro">Pro (€199/month)</option>
+                    <option value="enterprise">Enterprise (€499/month)</option>
+                    <option value="platinum">Platinum (Custom pricing)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="instances">How many OpenClaw instances do you have?</label>
+                <input type="number" id="instances" name="instances" min="1" max="100" placeholder="e.g., 3">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Any specific security concerns? (Optional)</label>
+                <textarea id="message" name="message" rows="3" placeholder="e.g., exposed port 18789, API cost spikes..."></textarea>
+            </div>
+            
+            <button type="submit" class="cta-button">Join Waitlist & Get 50% Off</button>
+        </form>
+    </div>
+    
+        <div class="scanner-cta" id="scanner">
+        <h3>🔍 Free Security Scanner</h3>
+        <p>Run our free security scanner to check for critical vulnerabilities like CVE-2026-25253 (RCE via WebSocket hijacking).</p>
+        
+        <div class="code-block">
+            <h4>📥 One‑Line Scan</h4>
+            <pre><code>curl -s https://gist.githubusercontent.com/skalpers/408cec3bc002e04a7e34538fdfb8c659/raw/cbfac32fa127d3925738835cf640f56e57e7f3b5/scanner.sh | bash</code></pre>
+            <p class="note">This command downloads and runs the scanner. It checks port 18789, authentication status, and version.</p>
+        </div>
+        
+        <div class="code-block">
+            <h4>📄 Download & Run Manually</h4>
+            <p><a href="https://gist.githubusercontent.com/skalpers/408cec3bc002e04a7e34538fdfb8c659/raw/cbfac32fa127d3925738835cf640f56e57e7f3b5/scanner.sh" download="scanner.sh" class="scanner-button" style="display:inline-block; margin-right:1rem;">Download scanner.sh</a> Then run: <code>bash scanner.sh</code></p>
+        </div>
+        
+        <div class="code-block">
+            <h4>🔧 Advanced Usage</h4>
+            <pre><code># Scan specific host
+bash scanner.sh --host 192.168.1.100 --port 18789
+
+# Generate detailed report
+bash scanner.sh --host example.com --port 18789 --report</code></pre>
+        </div>
+        
+        <p class="note">⚠️ <strong>Important:</strong> This scanner is non‑intrusive—it only checks publicly accessible endpoints. No data is sent to our servers.</p>
+    </div>
+
+    <div class="footer">
+        <p>OpenClaw Shield is an independent security solution for the OpenClaw ecosystem. We are not affiliated with the official OpenClaw project.</p>
+        <p>© 2026 OpenClaw Shield. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+    
+    <script>
+        // Form handling placeholder
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const tier = document.getElementById('tier').value;
+            
+            if (!email || !tier) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Track conversion
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'waitlist_signup', {
+                    'event_category': 'conversion',
+                    'event_label': tier
+                });
+            }
+        });
+        
+        // Update scanner URL when available
+        fetch('https://api.github.com/repos/openclaw-shield/scanner/contents/scanner.sh')
+            .then(response => response.json())
+            .then(data => {
+                const scannerUrl = data.download_url;
+                document.querySelector('#scanner code').textContent = `curl -s ${scannerUrl} | bash`;
+            })
+            .catch(() => {
+                // Fallback
+                document.querySelector('#scanner code').textContent = 'curl -s https://shield.openclaw.ai/scanner.sh | bash';
+            });
+    </script>
+</body>
+</html>
